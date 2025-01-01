@@ -1,17 +1,23 @@
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import React, {FunctionComponent, useState} from 'react';
-import {CheckBox} from 'react-native-btr';
+import {SvgProps} from 'react-native-svg';
+import {FaceSmileIcon} from 'react-native-heroicons/solid';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 interface DataProps {
   title: string;
-  desc: string;
+  desc?: string;
+  Icon?: React.FC<SvgProps>;
+  isCheckbox?: boolean;
 }
 
 interface CompProps {
   data: DataProps;
 }
 
-const MyCard: React.FC<CompProps> = ({data: {title, desc}}) => {
+const MyCard: React.FC<CompProps> = ({
+  data: {title, desc, Icon, isCheckbox},
+}) => {
   const [isSelected, setSelection] = useState(true);
   return (
     <TouchableOpacity
@@ -19,24 +25,26 @@ const MyCard: React.FC<CompProps> = ({data: {title, desc}}) => {
       onPress={() => setSelection(!isSelected)}>
       {/* Icon Section */}
       <View style={styles.iconBox}>
-        {/* <MaterialCommunityIcons name="volume-high" size={24} color="gray" /> */}
+        {Icon ? <Icon color="black" /> : <FaceSmileIcon />}
       </View>
       {/* Details Section */}
-      <View style={styles.detailsBox}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.desc}>{desc}</Text>
-      </View>
+      {desc && (
+        <View style={styles.detailsBox}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.desc}>{desc}</Text>
+        </View>
+      )}
       {/* Checkbox Section */}
-      <View style={styles.checkBox}>
-        <CheckBox
-          checked={isSelected}
-          onPress={() => setSelection(!isSelected)}
-          color="#4259A9"
-          disabled={false}
-          borderRadius={4}
-          borderWidth={4}
-        />
-      </View>
+      {isCheckbox && (
+        <View style={styles.checkBox}>
+          <BouncyCheckbox
+            isChecked={isSelected}
+            onPress={() => setSelection(!isSelected)}
+            fillColor="#4259A9"
+            innerIconStyle={{borderWidth: 2}}
+          />
+        </View>
+      )}
     </TouchableOpacity>
   );
 };
