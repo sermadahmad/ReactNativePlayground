@@ -13,7 +13,6 @@ import {
   ShareIcon,
   ExclamationCircleIcon,
 } from 'react-native-heroicons/solid';
-
 const controls = [
   {
     title: 'Turn on sounds',
