@@ -77,6 +77,7 @@ import {
     mainBox: {
       width: width,
       height: height,
+      paddingBottom: 50, 
     },
     countBox: {
       flex: 1,
