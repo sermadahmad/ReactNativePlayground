@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,6 +7,12 @@ import {
   View,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import MyHeader from './components/MyHeader';
+import FullName from './components/FullName';
+import MyTextInput from './components/MyTextInput';
+import ErrorMsg from './components/ErrorMsg';
+import Count from './components/Count';
+import TextContext from './context/TextContext';
 
 const FIRST_NAME_KEY = '@firstName';
 const LAST_NAME_KEY = '@lastName';
@@ -61,106 +67,43 @@ const App = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View>
-        <Text style={styles.title}>Text Input Tracker</Text>
-      </View>
-      <View>
-        <TextInput
-          style={[
-            styles.input,
-            focusedInput === 'firstName' && styles.inputFocused,
-          ]}
-          placeholder="Enter First Name ..."
-          placeholderTextColor="blue"
-          value={firstName}
-          onChangeText={input => {
-            handleTextInput(
-              input,
-              setFirstName,
-              setFirstNameError,
-              FIRST_NAME_KEY,
-            );
-          }}
-          onFocus={() => {
-            setFocusedInput('firstName');
-          }}
-          onBlur={() => {
-            setFocusedInput('');
-          }}
+    <TextContext.Provider value={{
+      firstName,
+      lastName,
+      focusedInput,
+      setFocusedInput,
+      handleTextInput,
+    }}>
+      <View style={styles.container}>
+        <MyHeader />
+        <MyTextInput
+          placeholder='Enter First Name ...'
+          label='firstName'
+          name={firstName}
+          setName={setFirstName}
+          setNameError={setFirstNameError}
+          KEY={FIRST_NAME_KEY}
         />
-      </View>
-      <View>
-        {firstNameError && (
-          <Text style={{color: 'red', fontSize: 18, marginVertical: 10}}>
-            {firstNameError}
-          </Text>
-        )}
-      </View>
-      <View>
-        <View>
-          <Text style={styles.countText}>
-            Length Count: {firstName.length} characters
-          </Text>
-        </View>
-        <TouchableOpacity
-          onPress={() => {
-            setFirstName('');
-          }}>
-          <Text style={styles.clearBtn}>Clear</Text>
-        </TouchableOpacity>
-      </View>
-      <View>
-        <TextInput
-          style={[
-            styles.input,
-            focusedInput === 'lastName' && styles.inputFocused,
-          ]}
+        <ErrorMsg
+          nameError={firstNameError}
+        />
+        <Count
+          name={firstName}
+          setName={setFirstName}
+        />
+        <MyTextInput
           placeholder="Enter Last Name ..."
-          placeholderTextColor="blue"
-          value={lastName}
-          onChangeText={input => {
-            handleTextInput(
-              input,
-              setLastName,
-              setLastNameError,
-              LAST_NAME_KEY,
-            );
-          }}
-          onFocus={() => {
-            setFocusedInput('lastName');
-          }}
-          onBlur={() => {
-            setFocusedInput('');
-          }}
+          label="lastName"
+          name={lastName}
+          setName={setLastName}
+          setNameError={setLastNameError}
+          KEY={LAST_NAME_KEY}
         />
+        <ErrorMsg nameError={lastNameError} />
+        <Count name={lastName} setName={setLastName} />
+        <FullName />
       </View>
-      <View>
-        {lastNameError && (
-          <Text style={{color: 'red', fontSize: 18, marginVertical: 10}}>
-            {lastNameError}
-          </Text>
-        )}
-      </View>
-      <View>
-        <View>
-          <Text style={styles.countText}>
-            Length Count: {lastName.length} characters
-          </Text>
-        </View>
-        <TouchableOpacity
-          onPress={() => {
-            setLastName('');
-          }}>
-          <Text style={styles.clearBtn}>Clear</Text>
-        </TouchableOpacity>
-      </View>
-      <View>
-        <Text style={styles.nameText}>
-          Full Name: {firstName} {lastName}
-        </Text>
-      </View>
-    </View>
+    </TextContext.Provider>
   );
 };
 
@@ -170,41 +113,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: 'black',
-    padding: 10,
-    marginVertical: 10,
-    color: 'blue',
-  },
-  clearBtn: {
-    textAlign: 'center',
-    color: 'red',
-    fontSize: 18,
-    marginVertical: 10,
-    backgroundColor: 'lightgrey',
-    padding: 10,
-    borderRadius: 5,
-  },
-  countText: {
-    fontSize: 18,
-    marginVertical: 10,
-  },
-  inputFocused: {
-    borderColor: 'blue',
-    borderWidth: 2,
-  },
-  nameText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginVertical: 20,
-    color: 'green',
   },
 });
