@@ -16,7 +16,7 @@ const ButtonsComponent = () => {
                         color="green" 
                     />}
                     text="Create Image"
-                    onPress={() => console.log("Home Pressed")}
+                    onPress={() => {}}
                 />
                 <IconButton
                     icon={
@@ -26,7 +26,7 @@ const ButtonsComponent = () => {
                         color="blue"
                     />}
                     text="Analyze Data"
-                    onPress={() => console.log("Home Pressed")}
+                    onPress={() => {}}
                 />
             </View>
             <View style={styles.btnContainer}>
@@ -39,11 +39,11 @@ const ButtonsComponent = () => {
                         />
                     }
                     text="Get advice"
-                    onPress={() => console.log("Home Pressed")}
+                    onPress={() => {}}
                 />
                 <IconButton
                     text="More"
-                    onPress={() => console.log("Home Pressed")}
+                    onPress={() => {}}
                 />
             </View>
         </View>

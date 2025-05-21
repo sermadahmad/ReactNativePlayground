@@ -23,7 +23,6 @@ const ChatComponent = () => {
                 </View>
             );
         } else {
-            // If this is the last item, scroll to end when it lays out
             const isLast = index === data.length - 1;
             return (
                 <View

@@ -12,7 +12,6 @@ const HomeComponent = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: '#fff',
     width: '100%',
     alignItems: 'center',
     padding: 8,

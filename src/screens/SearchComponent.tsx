@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import AntDesign from "react-native-vector-icons/AntDesign";
@@ -15,11 +15,7 @@ const SearchComponent = () => {
                 placeholder={"Ask anything"}
                 style={{
                     flex: 5,
-                    // paddingHorizontal: 16,
-                    // paddingVertical: 8,
-                    // backgroundColor: "red",
                     fontSize: 18,
-                    // fontWeight: "500",
                     marginHorizontal: 14,
                     color: "black",
                 }}
@@ -27,13 +23,12 @@ const SearchComponent = () => {
                 onChangeText={(text) => setSearchText(text)}
             />
             <View>
-                <TouchableOpacity 
+                <TouchableOpacity
                     onPress={() => {
                         if (searchText.length > 0) {
                             getResponse(searchText, responses, prompts, setResponses, setPrompts)
                             setSearchText("");
                         }
-                        
                     }}
                 >
                     <AntDesign
@@ -62,7 +57,6 @@ const styles = StyleSheet.create({
         bottom: 0,
         flexDirection: "row",
         marginVertical: 8,
-        // marginHorizontal: 18,
         padding: 4,
         borderRadius: 100,
 
