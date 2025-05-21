@@ -6,11 +6,11 @@ const Stack = createStackNavigator();
 
 const AppNavigator = () => {
   return (
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="ChatBot">
         <Stack.Screen 
-        name="Home" 
+        name="ChatBot" 
         component={HomeScreen} 
-        options={{ headerShown: false }}
+        // options={{ headerShown: false }}
       />
       </Stack.Navigator>
   );

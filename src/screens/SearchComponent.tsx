@@ -1,10 +1,14 @@
-import React from "react";
+import React, {useContext} from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { getResponse } from "../utils/groqApi";
+import { ChatContext } from "../Contexts/ChatContext";
 
 const SearchComponent = () => {
     const [searchText, setSearchText] = React.useState("");
+    const { responses, prompts } = useContext(ChatContext);
+    const { setResponses, setPrompts } = useContext(ChatContext);
     return (
         <View style={styles.container}>
             <TextInput
@@ -23,7 +27,15 @@ const SearchComponent = () => {
                 onChangeText={(text) => setSearchText(text)}
             />
             <View>
-                <TouchableOpacity>
+                <TouchableOpacity 
+                    onPress={() => {
+                        if (searchText.length > 0) {
+                            getResponse(searchText, responses, prompts, setResponses, setPrompts)
+                            setSearchText("");
+                        }
+                        
+                    }}
+                >
                     <AntDesign
                         name="arrowup"
                         size={24}
